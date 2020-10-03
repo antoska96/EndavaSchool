@@ -1,32 +1,32 @@
 import java.time.LocalDate;
 
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class User {
+    public enum Status {ACTIVE, INACTIVE, BLOCKED, NEW}
 
+    private LocalDate date;
     private String firstname;
     private String lastname;
     private String email;
-    private String status;
-    private LocalDate date;
     private int age;
+    private Status status;
 
-    public User(String firstname, String lastname, String email, int age) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.age = age;
-        this.date = getDate();
-        this.status = getStatus();
-    }
-
-    public User(String firstname, String lastname, String email, int age, LocalDate date) {
+    public User(String firstname, String lastname, String email, int age, Status Status, LocalDate date) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.age = age;
         this.date = date;
-        this.status = getStatus();
+        status = Status;
+    }
+
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getFirstname() {
@@ -53,25 +53,6 @@ public class User {
         this.email = email;
     }
 
-    public String getStatus() {
-        status = "NEW";
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDate getDate() {
-        LocalDate date = LocalDate.now();
-        return date;
-    }
-
-    public void setDate(String time) {
-        this.date = date;
-    }
-
-
     public int getAge() {
         return age;
     }
@@ -80,19 +61,13 @@ public class User {
         this.age = age;
     }
 
-    public void ActiveUsers() {
-
-        long daysBetween = DAYS.between(date, LocalDate.now());
-        if (daysBetween >= 2 && daysBetween < 30) {
-            setStatus("ACTIVE");
-        } else if (daysBetween >= 30) {
-            setStatus("INACTIVE");
-        }
-        if (daysBetween >= 31) {
-            setStatus("BLOCKED");
-        }
+    public Status getStatus() {
+        return status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {
